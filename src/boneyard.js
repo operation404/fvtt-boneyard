@@ -24,7 +24,7 @@ class Boneyard {
 	
 	static prepare_func = (func) => {
 		return `return (${func.toString()})(args);`;
-		};
+	};
 	static recover_func = (func_str) => {
 		return new Function("args", func_str);
 	};
