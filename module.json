@@ -1,0 +1,23 @@
+{
+	"name": "boneyard",
+	"title": "Boneyard",
+	"description": "A collection of general use tools by Lich.",
+	"authors": [{
+		"name": "Lich",
+		"discord": "operation404#8123"
+	}],
+	"version": "1.0.0",
+	"minimumCoreVersion": "9",
+	"compatibleCoreVersion": "9",
+	"esmodules": [
+		"src/boneyard.js"
+	],
+	"dependencies": [{
+		"name": "socketlib",
+		"manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json"
+	}],
+	"socket": true,
+	"readme": "https://github.com/operation404/fvtt-boneyard/blob/main/README.md",
+	"manifest": "https://github.com/operation404/fvtt-boneyard/releases/download/latest/module.json",
+	"download": "https://github.com/operation404/fvtt-boneyard/releases/download/latest/module.zip"
+}
