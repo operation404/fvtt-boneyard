@@ -30,25 +30,25 @@ class Boneyard {
 	};
 	
 	static executeAsGM_wrapper = async (func, args) => {
-		return await this.socket.executeAsGM("boneyard_exec", this.prepare_func(func), args);
+		return this.socket.executeAsGM("boneyard_exec", this.prepare_func(func), args);
 	};
 	static executeAsUser_wrapper = async (userID, func, args) => {
-		return await this.socket.executeAsUser("boneyard_exec", userID, this.prepare_func(func), args);
+		return this.socket.executeAsUser("boneyard_exec", userID, this.prepare_func(func), args);
 	};
 	static executeForAllGMs_wrapper = async (func, args) => {
-		return await this.socket.executeForAllGMs("boneyard_exec", this.prepare_func(func), args);
+		return this.socket.executeForAllGMs("boneyard_exec", this.prepare_func(func), args);
 	};
 	static executeForOtherGMs_wrapper = async (func, args) => {
-		return await this.socket.executeForOtherGMs("boneyard_exec", this.prepare_func(func), args);
+		return this.socket.executeForOtherGMs("boneyard_exec", this.prepare_func(func), args);
 	};
 	static executeForEveryone_wrapper = async (func, args) => {
-		return await this.socket.executeForEveryone("boneyard_exec", this.prepare_func(func), args);
+		return this.socket.executeForEveryone("boneyard_exec", this.prepare_func(func), args);
 	};
 	static executeForOthers_wrapper = async (func, args) => {
-		return await this.socket.executeForOthers("boneyard_exec", this.prepare_func(func), args);
+		return this.socket.executeForOthers("boneyard_exec", this.prepare_func(func), args);
 	};
 	static executeForUsers_wrapper = async (recipients, func, args) => {
-		return await this.socket.executeForUsers("boneyard_exec", recipients, this.prepare_func(func), args);
+		return this.socket.executeForUsers("boneyard_exec", recipients, this.prepare_func(func), args);
 	};
 }
 
