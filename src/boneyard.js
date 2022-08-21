@@ -7,10 +7,10 @@ class Boneyard {
 		Hooks.once("socketlib.ready", () => {
 			let boneyard_socket = socketlib.registerModule(Boneyard.module_id);
 			boneyard_socket.register("boneyard_exec", this.boneyard_exec)
-			window.Boneyard = Boneyard; // set up our global, all globals are members of window
 			Boneyard.socket = boneyard_socket;
 			console.log("====== Boneyard ======\n - socket set");
 		});
+		window.Boneyard = Boneyard; // set up our global, all globals are members of window
 	};
 	
 	// Functions must be of the form (args)=>{} 
@@ -50,6 +50,7 @@ class Boneyard {
 	static executeForUsers_wrapper = async (recipients, func, args) => {
 		return this.socket.executeForUsers("boneyard_exec", recipients, this.prepare_func(func), args);
 	};
+	
 }
 
 Boneyard.init();
