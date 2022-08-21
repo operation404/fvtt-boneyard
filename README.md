@@ -72,7 +72,7 @@ static executeForOthers_wrapper = async (func, args) => {...};
 static executeForUsers_wrapper = async (recipients, func, args) => {...};
 ```
 
-If desired, you can also access Boneyard's socket directly as well as use the functions used for convering and recovering functions to and from strings. Since socketlib requires the function being called to be registered, this likely isn't very useful unless you use a world script or modify this module to register more functions, since the only registered function is Boneyard's *boneyard_exec* function and Boneyard already wraps each possible socketlib call with it.
+If desired, you can also access Boneyard's socket directly as well as use the functions used for converting and recovering functions to and from strings. Since socketlib requires the function being called to be registered, this likely isn't very useful unless you use a world script or modify this module to register more functions, since the only registered function is Boneyard's *boneyard_exec* function and Boneyard already wraps each possible socketlib call with it.
 
 ```js
 let result = await Boneyard.socket.executeAsGM("boneyard_exec", 
