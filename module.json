@@ -6,7 +6,7 @@
 		"name": "Lich",
 		"discord": "operation404#8123"
 	}],
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"minimumCoreVersion": "9",
 	"compatibleCoreVersion": "9",
 	"esmodules": [
