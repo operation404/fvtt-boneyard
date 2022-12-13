@@ -6,9 +6,14 @@
 		"name": "Lich",
 		"discord": "operation404#8123"
 	}],
-	"version": "1.1.0",
+	"version": "1.0.0",
 	"minimumCoreVersion": "9",
 	"compatibleCoreVersion": "9",
+	"languages": [{
+		"lang": "en",
+		"name": "English",
+		"path": "languages/en.json"
+	}],
 	"esmodules": [
 		"src/boneyard.js"
 	],

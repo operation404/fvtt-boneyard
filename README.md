@@ -1,8 +1,8 @@
 # Boneyard
-Boneyard is a module for any general use tools I think I might need in my Foundry games.
+Boneyard is a module for any general use tools I think I might need in my foundry games.
 
 ## Socketlib wrapper functions for executing anonymous functions
-It is possible to execute anonymous functions through socketlib using the wrapper functions Boneyard provides. Boneyard converts the function to a string and sends that string through socketlib to a registered handler which parses the string back into a function and executes it. 
+It is possible to execute anonymous functions through the wrapper functions Boneyard provides. Boneyard converts the function to a string and sends that string through socketlib to a registered handler which parses the string back into a function and executes it. 
 
 ```js
 Boneyard.executeForEveryone_wrapper((args) => {
@@ -12,7 +12,7 @@ Boneyard.executeForEveryone_wrapper((args) => {
 // Each user should see 'Greetings' followed by their name
 ```
 
-The functions can have a single argument (called *args* in these examples) which should be an object that contains any actual arguments the function might need.
+The functions can have a single argument called *args* which should be an object that contains any actual arguments the function might need.
 
 ```js
 let result = await Boneyard.executeAsGM_wrapper((args) => {
@@ -29,16 +29,13 @@ console.log(result);
 // Should output 5, 3, 8, and 9
 ```
 
-**Important warning:** Keep in mind that when the *args* object is serialized for sending through socketlib, it's effectively turned into a string and parsed back into an object by the other client. This means that *args* and all of the data it contains is a copy, and modifying them on the receiving client will not alter the original data on your end. The object will also lose any functions it contains. The process of serializing an object also serializes any nested objects it contains, which can create an infinite loop resulting in a call stack error if there are any circular reference chains. 
+Keep in mind that when *args* is sent through socketlib it is converted into a JSON object before being converted back on the other client. Therefore any objects *args* possessed will be copies of their original and any references will likely be broken. The function being executed will also be in the global scope instead of the current scope at the time of calling the Boneyard wrapper. This means that while your function cannot access local variables in the scope it was declared in, it can still access global foundry variables such as *game*, as seen in the first example.
 
-Foundry documents are self-referential by nature, but most (if not all) Foundry objects avoid infinite loops during serialization by overriding the serialization functions and only serializing a specific subset of their properties. Still, you should not pass Foundry documents as arguments through socketlib as the client will only receive a copy of that document's data, and you won't be able to modify whatever token/actor/etc the document actually represents in the game world. If you wish to modify a document inside of the function you are sending, you should store the document's id in *args* and use it to retrieve the document on the receiving client.
-
-The function sent will also be executed in the global scope instead of the current scope at the time of calling the Boneyard wrapper. This means that while the function cannot access local variables in the scope it was declared in, it can still access global Foundry variables such as *game*, as seen in the first example.
+***Note:*** *I am a novice in regards to JS and this might not be an entirely accurate description of what's really going on, but it's my best understanding of the limitations of socketlib.*
 
 ```js
 // This will cause errors when any client other than the sender executes the
-// function because game.user.targets will be serialized before being sent over
-// the socket and any document references won't persist
+// function because game.user.targets won't correctly persist through the socket
 Boneyard.executeAsGM_wrapper((args)=>{
     args.targets.forEach(token => { // Throws an error
         token.actor.update({
@@ -50,8 +47,7 @@ Boneyard.executeAsGM_wrapper((args)=>{
 // This is a workaround for the above. Token ids are strings and can be safely sent
 // over sockets, the receiving client can then find the desired tokens by their id
 Boneyard.executeAsGM_wrapper((args)=>{
-    args.target_ids.forEach(id => { 
-        // Find each token the player originally had targeted
+    args.target_ids.forEach(id => { // Find each token the player had targeted
         let token = canvas.tokens.placeables.find(token => token.id === id);
         token.actor.update({
             "data.hp.value": token.actor.data.data.hp.value - 1, // Reduce target hp by 1
@@ -72,7 +68,7 @@ static executeForOthers_wrapper = async (func, args) => {...};
 static executeForUsers_wrapper = async (recipients, func, args) => {...};
 ```
 
-If desired, you can also access Boneyard's socket directly as well as use the functions used for converting and recovering functions to and from strings. Since socketlib requires the function being called to be registered, this likely isn't very useful unless you use a world script or modify this module to register more functions, since the only registered function is Boneyard's *boneyard_exec* function and Boneyard already wraps each possible socketlib call with it.
+If desired, you can also access Boneyard's socket directly as well as use the functions used for convering and recovering functions to and from strings. Since socketlib requires the function being called to be registered, this likely isn't very useful unless you use a world script or modify this module to register more functions, since the only registered function is Boneyard's *boneyard_exec* function and Boneyard already wraps each possible socketlib call with it.
 
 ```js
 let result = await Boneyard.socket.executeAsGM("boneyard_exec", 

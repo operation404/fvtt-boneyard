@@ -1,3 +1,6 @@
+import { Drawing_Tools } from "./drawing_tools.js";
+
+
 class Boneyard {
     static module_id = "boneyard";
     static socket;
@@ -6,6 +9,7 @@ class Boneyard {
     static init() {
         Boneyard.log("module init");
         Boneyard.prepare_hook_handlers();
+		Drawing_Tools.init();
 
         // Create a global object to expose only the desired functions
         window.Boneyard = {
