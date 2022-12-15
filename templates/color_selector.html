@@ -1,11 +1,11 @@
- <div style="background: url(../ui/denim075.png) repeat;">
- 
-	<div>
-		<input type="color" value="#ffffff" data-edit="colorSelector"/>
-	</div>
-	
-	<div>
-		<input class="color" type="text" name="colorSelector" value="#ffffff" style=""/>
-	</div>
-	
+{{!
+	The div must have a class of app in order to have its z-index be higher than the 
+	canvas by default. The z-index can also be manually calculated and added, but I
+	feel it is cleaner to instead determine it by inheriting the property.
+}}
+<div id="by-color-selector" class="app" data-appid="{{appId}}" >
+    <div>
+        <input id="by-color-dropper" type="color" value="#FFFFFF" data-edit="colorSelector" />
+        <input id="by-color-text" type="text" value="#FFFFFF" name="colorSelector" />
+    </div>
 </div>

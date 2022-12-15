@@ -1,0 +1,28 @@
+/* Using a # allows styling to be applied by id rather than class */
+#by-color-selector {
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  background: #2e353b;
+}
+
+#by-color-dropper {
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 80px;
+  width: 80px;
+  display: list-item;
+}
+
+#by-color-text {
+  width: 80px;
+  background: white;
+  display: list-item;
+}
+
+/*# sourceMappingURL=core.css.map */

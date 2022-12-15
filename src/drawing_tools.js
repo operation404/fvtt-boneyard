@@ -15,27 +15,21 @@ class Drawing_Tools extends Application {
 
     static add_control_buttons(controls) {
         const drawing_controls = controls.find(control_set => control_set.name === "drawings");
-
         drawing_controls.tools.push({
-            "name": "set-stroke-color",
+            "name": "set-strokeColor",
             "icon": "fas fa-paint-brush",
             "title": "CONTROLS.DrawingStrokeColor",
             "onClick": () => {
-                new Drawing_Tools({
-                    color_type: 'strokeColor'
-                }).render(true);
+                new Drawing_Tools('strokeColor').render(true);
             },
             button: true,
         });
-
         drawing_controls.tools.push({
-            "name": "set-fill-color",
+            "name": "set-fillColor",
             "icon": "fas fa-fill-drip",
             "title": "CONTROLS.DrawingFillColor",
             "onClick": () => {
-                new Drawing_Tools({
-                    color_type: 'fillColor'
-                }).render(true);
+                new Drawing_Tools('fillColor').render(true);
             },
             button: true,
         });
@@ -43,66 +37,72 @@ class Drawing_Tools extends Application {
 
 
     /**
-     * @typedef {object} Drawing_Tools_Options extends ApplicationOptions
-     * @property {string|null} [color_type]  Either 'strokeColor' or 'fillColor'
-     */
-
-    /**
      * The Drawing_Tools Application window.
-     * @param {Drawing_Tools_Options} [options]  Configuration options.
-     *                                           'color_type' option determines what drawing tool color is being set.
-     *                                            Also includes all normal Application options.
+     * @param {string} [color_type]           Which tool color to modify, 'strokeColor' or 'fillColor'
+     * @param {ApplicationOptions} [options]  Default Application configuration options.
      */
-
-    constructor(options = {}) {
+    constructor(color_type = null, options = {}) {
         super(options);
-        console.log(options.color_type);
-        this.color_type = options.color_type ? options.color_type : null;
-
+        this.color_type = color_type;
     }
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             template: `modules/boneyard/templates/color_selector.html`,
             id: 'drawing_tools',
-            popOut: true,
+            popOut: false,
         });
     }
 
     getData() {
-        // Send data to the html template
-        return {
-            msg: this.color_type,
-            color: 'red',
+        return { // Send data to the html template
+            appId: this.appId,
         };
     }
 
-
-    // Don't need this yet
-    /*
-	getData() {
-        // Send data to the template
-        return {
-            msg: this.color_type,
-            color: 'red',
-        };
+    async _renderInner(data) {
+        return super._renderInner(data);;
     }
-	*/
+
+
+    async _render(force = false, options = {}) {
+        await super._render(force, options);
+
+        const controls_container = document.querySelector('#ui-left > #controls');
+        const controls_container_style = window.getComputedStyle(controls_container);
+        const sub_controls = document.querySelector('#controls > ol.sub-controls.app.control-tools.flexcol.active');
+        const control = sub_controls.firstElementChild;
+        const control_style = window.getComputedStyle(control);
+
+        // offsetHeight includes padding+border but not margin
+        const control_height = control.offsetHeight + parseFloat(control_style.marginTop) + parseFloat(control_style.marginBottom);
+        const control_width = control.offsetWidth + parseFloat(control_style.marginLeft) + parseFloat(control_style.marginRight);
+        const max_controls_per_col = Math.floor(sub_controls.offsetHeight / control_height);
+        // There's always 1 main control column + potentially multiple sub-control columns
+        const columns = 1 + Math.ceil(sub_controls.childElementCount / max_controls_per_col);
+
+        const offset_left = (columns * control_width) + parseFloat(controls_container_style.paddingLeft);
+
+        // the drawing sub-controls should be the active set, so just query that
+        const drawing_tool = sub_controls.querySelector(`[data-tool='set-${this.color_type}']`);
+        const drawing_tool_rect = drawing_tool.getBoundingClientRect();
+        const drawing_tool_y_center = drawing_tool_rect.top + (drawing_tool_rect.height / 2); // not sure if .top or .y is better
+		
+        const offset_top = drawing_tool_y_center - (this._element[0].offsetHeight / 2);
+
+		this._element[0].style.left = `${offset_left}px`;
+		this._element[0].style.top = `${offset_top}px`;
+    }
+
 
     activateListeners(html) {
         super.activateListeners(html);
     }
 
-    /**
-     * Customize how a new HTML Application is added and first appears in the DOM
-     * @param {jQuery} html       The HTML element which is ready to be added to the DOM
-     * @private
-     */
     _injectHTML(html) {
         $('body').append(html);
         this._element = html;
-        //html.show(); // Doesn't do anything
-        html.hide().fadeIn(1200); // html starts hidden and fades in
+		//console.log(this._element);
     }
 
 

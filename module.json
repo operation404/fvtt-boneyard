@@ -17,6 +17,9 @@
 	"esmodules": [
 		"src/boneyard.js"
 	],
+	"styles": [
+		"css/core.css"
+	],
 	"dependencies": [{
 		"name": "socketlib",
 		"manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json"
