@@ -26,3 +26,26 @@
 	background: white;
 	display: list-item;
 }
+
+#by-alpha {
+	width: 80px;
+	display: list-item;
+}
+
+#by-stroke-width {
+	width: 80px;
+	display: list-item;
+	text-align: center; 
+	height: auto; 
+	flex-grow: 0;
+	background: white;
+}
+
+#by-fill-type {
+	text-align:left; 
+	height: auto; 
+	flex-grow: 0;
+	width: 80px;
+	display: list-item;
+	background: white;
+}
