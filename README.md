@@ -76,7 +76,7 @@ let result = await Boneyard.socket.executeAsGM("boneyard_exec",
 );
 console.log(result);
 
-// Should output 'Hello!' followed by '5'
+// Sender should log '5', GM should log 'Hello!'
 ```
 
 ## Requirements

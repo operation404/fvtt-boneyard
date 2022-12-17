@@ -14,7 +14,6 @@ class Boneyard {
         // Create a global object to expose only the desired functions
         window.Boneyard = {
             module_id: Boneyard.module_id,
-            socket: Boneyard.socket,
             debug: Boneyard.debug,
             prepare_func: Boneyard.prepare_func,
             recover_func: Boneyard.recover_func,
@@ -43,6 +42,7 @@ class Boneyard {
     static register_socket() {
         Boneyard.socket = socketlib.registerModule(Boneyard.module_id);
         Boneyard.socket.register("boneyard_exec", Boneyard.boneyard_exec)
+		if (window.Boneyard !== undefined) window.Boneyard.socket = Boneyard.socket;
         Boneyard.log("socket set");
     }
 
