@@ -1,7 +1,7 @@
 # Boneyard
 Boneyard is a module for the general use tools I write for my Foundry games. Right now, it includes the following tools:
 - [Quick drawing tool settings menus](#quick-drawing-tools-colorsettings-adjuster)
-- [Socketlib anonymous function wrappers](socketlib-wrapper-functions-for-executing-anonymous-functions)
+- [Socketlib anonymous function wrappers](#socketlib-wrapper-functions-for-executing-anonymous-functions)
 
 ## Quick drawing tools color/settings adjuster
 Boneyard adds two new tools to the Drawing sidebar. These tools open a quick menu that allows fast adjustment of stroke or fill color, opacity, line width, and fill type. The changes to drawing settings are continuously updated as you make adjustments on the panel, and it can be closed by clicking anywhere off of it.
