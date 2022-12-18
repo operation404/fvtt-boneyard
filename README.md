@@ -6,11 +6,11 @@ Boneyard adds two new tools to the Drawing sidebar. These tools open a quick men
 
 The first tool controls line settings. The menu for lines contains options for changing stroke color, opacity, and line width.
 
-![Stroke Example. The line menu has options for changing stroke color, opacity, and width.](https://github.com/operation404/fvtt-boneyard/blob/dev-drawing-tools/images/stroke_example.png?raw=true)
+![Stroke Example. The line menu has options for changing stroke color, opacity, and width.](https://github.com/operation404/fvtt-boneyard/blob/main/images/stroke_example.png?raw=true)
 
 The second tool controls fill settings. The menu for fill contains options for changing fill color, opacity, and fill type.
 
-![Stroke Example. The line menu has options for changing stroke color, opacity, and width.](https://github.com/operation404/fvtt-boneyard/blob/dev-drawing-tools/images/fill_example.png?raw=true)
+![Stroke Example. The line menu has options for changing stroke color, opacity, and width.](https://github.com/operation404/fvtt-boneyard/blob/main/images/fill_example.png?raw=true)
 
 ## Socketlib wrapper functions for executing anonymous functions
 It is possible to execute anonymous functions through the wrapper functions Boneyard provides. Boneyard converts the function to a string and sends that string through socketlib to a registered handler which parses the string back into a function and executes it. 
