@@ -4,7 +4,8 @@
 	"description": "A collection of general use tools by Lich.",
 	"authors": [{
 		"name": "Lich",
-		"discord": "operation404#8123"
+		"discord": "operation404#8123",
+		"url": "https://github.com/operation404"
 	}],
 	"version": "2.0.0",
 	"compatibility": {
